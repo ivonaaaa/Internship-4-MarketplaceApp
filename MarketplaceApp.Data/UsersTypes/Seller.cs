@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace MarketplaceApp.Data
 {
-    internal class Seller
+    public class Seller : Users
     {
+        public List<Product> ProductsForSale { get; private set; } = new List<Product>();
+        public decimal TotalEarnings { get; private set; }
+
+        public Seller(string name, string email) : base(name, email) { }
     }
 }
