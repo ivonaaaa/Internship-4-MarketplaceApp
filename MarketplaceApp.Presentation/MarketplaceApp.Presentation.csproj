@@ -50,7 +50,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AllMenus\" />
     <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarketplaceApp.Domain\MarketplaceApp.Domain.csproj">
+      <Project>{bdd99b73-5da8-4895-9e1a-926a3e34e861}</Project>
+      <Name>MarketplaceApp.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

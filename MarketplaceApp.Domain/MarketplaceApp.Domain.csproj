@@ -45,12 +45,16 @@
   <ItemGroup>
     <Compile Include="Marketplace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Functions\" />
+    <ProjectReference Include="..\MarketplaceApp.Data\MarketplaceApp.Data.csproj">
+      <Project>{4147b291-e356-468b-976e-f2ce21e4126f}</Project>
+      <Name>MarketplaceApp.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

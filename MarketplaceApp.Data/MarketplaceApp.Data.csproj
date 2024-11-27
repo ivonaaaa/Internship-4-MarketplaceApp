@@ -43,11 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\ProductCategory.cs" />
+    <Compile Include="Enums\ProductStatus.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="Seeds\Seeds.cs" />
     <Compile Include="Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsersTypes\Buyer.cs" />
-    <Compile Include="UsersTypes\Seller.cs" />
+    <Compile Include="UserTypes\Buyer.cs" />
+    <Compile Include="UserTypes\Seller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

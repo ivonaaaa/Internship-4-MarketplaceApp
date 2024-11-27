@@ -10,6 +10,8 @@ namespace MarketplaceApp.Presentation
     {
         static void Main(string[] args)
         {
+            //ode se pozivaju svi menui i pomocne funkcije za ispise itd
+            //glavni "pokretac" aplikacije
         }
     }
 }
