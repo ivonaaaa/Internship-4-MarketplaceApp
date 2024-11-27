@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{BDD99B73-5DA8-4895-9E1A-926A3E34E861}|MarketplaceApp.Domain\\MarketplaceApp.Domain.csproj|solutionrelative:marketplaceapp.domain\\marketplace.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{4147B291-E356-468B-976E-F2CE21E4126F}|MarketplaceApp.Data\\MarketplaceApp.Data.csproj|c:\\users\\ivona\\onedrive\\desktop\\dump\\4-tjedan\\internship-4-marketplaceapp\\marketplaceapp\\marketplaceapp.data\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4147B291-E356-468B-976E-F2CE21E4126F}|MarketplaceApp.Data\\MarketplaceApp.Data.csproj|solutionrelative:marketplaceapp.data\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BDD99B73-5DA8-4895-9E1A-926A3E34E861}|MarketplaceApp.Domain\\MarketplaceApp.Domain.csproj|C:\\Users\\ivona\\OneDrive\\Desktop\\DUMP\\4-tjedan\\Internship-4-MarketplaceApp\\MarketplaceApp\\marketplaceapp.domain\\validationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BDD99B73-5DA8-4895-9E1A-926A3E34E861}|MarketplaceApp.Domain\\MarketplaceApp.Domain.csproj|solutionrelative:marketplaceapp.domain\\validationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -22,11 +26,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 350,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\ivona\\OneDrive\\Desktop\\DUMP\\4-tjedan\\Internship-4-MarketplaceApp\\MarketplaceApp\\MarketplaceApp.Data\\Product.cs",
+              "RelativeDocumentMoniker": "MarketplaceApp.Data\\Product.cs",
+              "ToolTip": "C:\\Users\\ivona\\OneDrive\\Desktop\\DUMP\\4-tjedan\\Internship-4-MarketplaceApp\\MarketplaceApp\\MarketplaceApp.Data\\Product.cs",
+              "RelativeToolTip": "MarketplaceApp.Data\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T22:18:23.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Transactions.cs",
               "DocumentMoniker": "C:\\Users\\ivona\\OneDrive\\Desktop\\DUMP\\4-tjedan\\Internship-4-MarketplaceApp\\MarketplaceApp\\MarketplaceApp.Data\\Transactions.cs",
               "RelativeDocumentMoniker": "MarketplaceApp.Data\\Transactions.cs",
@@ -34,12 +51,11 @@
               "RelativeToolTip": "MarketplaceApp.Data\\Transactions.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T19:57:40.419Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:57:40.419Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ValidationService.cs",
               "DocumentMoniker": "C:\\Users\\ivona\\OneDrive\\Desktop\\DUMP\\4-tjedan\\Internship-4-MarketplaceApp\\MarketplaceApp\\MarketplaceApp.Domain\\ValidationService.cs",
               "RelativeDocumentMoniker": "MarketplaceApp.Domain\\ValidationService.cs",
@@ -47,8 +63,7 @@
               "RelativeToolTip": "MarketplaceApp.Domain\\ValidationService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T15:21:46.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T15:21:46.443Z"
             },
             {
               "$type": "Document",
@@ -58,7 +73,7 @@
               "RelativeDocumentMoniker": "MarketplaceApp.Domain\\Marketplace.cs",
               "ToolTip": "C:\\Users\\ivona\\OneDrive\\Desktop\\DUMP\\4-tjedan\\Internship-4-MarketplaceApp\\MarketplaceApp\\MarketplaceApp.Domain\\Marketplace.cs",
               "RelativeToolTip": "MarketplaceApp.Domain\\Marketplace.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAuwHIAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAuwNcAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-27T12:59:56.404Z",
               "EditorCaption": ""
