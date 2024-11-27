@@ -14,7 +14,7 @@ namespace MarketplaceApp.Data
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public ProductStatus Status { get; private set; }
+        public ProductStatus Status { get; set; }
         public ProductCategory Category { get; private set; }
         public Seller Seller { get; private set; }
         

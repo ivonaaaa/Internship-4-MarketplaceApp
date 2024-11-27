@@ -46,7 +46,9 @@
     <Compile Include="Enums\ProductCategory.cs" />
     <Compile Include="Enums\ProductStatus.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="PromoCode.cs" />
     <Compile Include="Seeds\Seeds.cs" />
+    <Compile Include="Transactions.cs" />
     <Compile Include="Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserTypes\Buyer.cs" />

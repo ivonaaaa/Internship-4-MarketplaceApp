@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MarketplaceApp.Data;
 using MarketplaceApp.Data.UserTypes;
+using MarketplaceApp.Data.Enums;
 
 namespace MarketplaceApp.Domain
 {
@@ -15,7 +16,7 @@ namespace MarketplaceApp.Domain
 
         private List<Users> users = new List<Users>();
         private List<Product> products = new List<Product>();
-        //private List<Transaction> transactions = new List<Transaction>();
+        private List<Transaction> transactions = new List<Transaction>();
 
         public Marketplace() { }
 
@@ -48,7 +49,7 @@ namespace MarketplaceApp.Domain
 
         public Users Login(string email)
         {
-            var user = users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            var user = users.FirstOrDefault(u => u.Email == email);
             if (user == null)
             {
                 Console.WriteLine("Korisnik nije pronađen.");
@@ -57,6 +58,72 @@ namespace MarketplaceApp.Domain
             Console.WriteLine($"Dobrodošli, {user.Name}");
             return user;
         }
+
+        public List<Product> GetAvailableProducts()
+        {
+            return products.Where(p => p.Status == ProductStatus.ForSale).ToList();
+        }
+
+        public List<Product> GetAvailableProductsByCategory(ProductCategory category)
+        {
+            return products.Where(p => p.Category == category && p.Status == ProductStatus.ForSale).ToList();
+        }
+
+        public bool BuyProduct(Buyer buyer, Guid productId, string promoCode = null)
+        {
+            var product = products.FirstOrDefault(p => p.Id == productId);
+            if (product == null || product.Status != ProductStatus.ForSale)
+            {
+                Console.WriteLine("Proizvod nije dostupan.");
+                return false;
+            }
+
+            decimal finalPrice = product.Price;
+            if (!string.IsNullOrEmpty(promoCode))
+            {
+                var discount = ValidationService.ApplyPromoCode(promoCode, product.Category);
+                if (discount > 0)
+                {
+                    finalPrice -= finalPrice * discount;
+                    Console.WriteLine($"Promo kod primijenjen! Nova cijena: {finalPrice:C}");
+                }
+                else Console.WriteLine("Nevažeć promo kod.");
+            }
+
+            if (buyer.Balance < finalPrice)
+            {
+                Console.WriteLine("Nemate dovoljno sredstava.");
+                return false;
+            }
+
+            buyer.Balance -= finalPrice;
+            product.Seller.TotalEarnings += finalPrice * 0.95m;
+            product.Status = ProductStatus.Sold;
+            transactions.Add(new Transaction(product.Id, buyer.Email));
+
+            Console.WriteLine($"Kupnja proizvoda "{product.Name}" je uspješna!");
+            return true;
+        }
+
+        public bool ReturnProduct(Buyer buyer, Guid productId)
+        {
+            var transaction = transactions.FirstOrDefault(t => t.ProductId == productId && t.BuyerEmail == buyer.Email);
+            if (transaction == null)
+            {
+                Console.WriteLine("Povrat nije moguć jer transakcija nije pronađena.");
+                return false;
+            }
+            var product = products.FirstOrDefault(p => p.Id == productId);
+            decimal refundAmount = product.Price * 0.8m;
+            buyer.Balance += refundAmount;
+            product.Status = ProductStatus.ForSale;
+
+            Console.WriteLine($"Povrat proizvoda "{product.Name}" je uspješan!");
+            return true;
+        }
+
+
+
 
     }
 }
