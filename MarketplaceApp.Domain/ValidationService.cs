@@ -11,12 +11,9 @@ namespace MarketplaceApp.Domain
 {
     public class ValidationService
     {
-        public static class Validation
+        public static bool IsValidEmail(string email)
         {
-            public static bool IsValidEmail(string email)
-            {
-                return !string.IsNullOrEmpty(email) && email.Contains("@") && email.Contains(".");
-            }
+            return !string.IsNullOrEmpty(email) && email.Contains("@") && email.Contains(".");
         }
 
         public static decimal ApplyPromoCode(string promoCode, ProductCategory category)

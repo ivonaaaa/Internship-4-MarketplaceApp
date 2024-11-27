@@ -14,7 +14,7 @@ namespace MarketplaceApp.Domain
     {
         //funcionalnost, funkcije
 
-        private List<Users> users = new List<Users>();
+        public List<Users> users = new List<Users>();
         private List<Product> products = new List<Product>();
         private List<Transaction> transactions = new List<Transaction>();
 
@@ -22,7 +22,7 @@ namespace MarketplaceApp.Domain
 
         public void RegisterBuyer(string name, string email, decimal balance)
         {
-            if (ValidationService.Validation.IsValidEmail(email) && !UserExists(email))
+            if (ValidationService.IsValidEmail(email) && !UserExists(email))
             {
                 var buyer = new Buyer(name, email, balance);
                 users.Add(buyer);
@@ -33,7 +33,7 @@ namespace MarketplaceApp.Domain
 
         public void RegisterSeller(string name, string email)
         {
-            if (ValidationService.Validation.IsValidEmail(email) && !UserExists(email))
+            if (ValidationService.IsValidEmail(email) && !UserExists(email))
             {
                 var seller = new Seller(name, email);
                 users.Add(seller);
@@ -69,14 +69,19 @@ namespace MarketplaceApp.Domain
             return products.Where(p => p.Category == category && p.Status == ProductStatus.ForSale).ToList();
         }
 
-        public bool BuyProduct(Buyer buyer, Guid productId, string promoCode = null)
+        public Product FindProductById(Guid productId)
         {
             var product = products.FirstOrDefault(p => p.Id == productId);
-            if (product == null || product.Status != ProductStatus.ForSale)
+            if (product == null)
             {
-                Console.WriteLine("Proizvod nije dostupan.");
-                return false;
+                Console.WriteLine("Proizvod nije pronađen.");
             }
+            return product;
+        }
+
+        public bool BuyProduct(Buyer buyer, Guid productId, string promoCode = null)
+        {
+            var product = FindProductById(productId);
 
             decimal finalPrice = product.Price;
             if (!string.IsNullOrEmpty(promoCode))
@@ -99,31 +104,66 @@ namespace MarketplaceApp.Domain
             buyer.Balance -= finalPrice;
             product.Seller.TotalEarnings += finalPrice * 0.95m;
             product.Status = ProductStatus.Sold;
-            transactions.Add(new Transaction(product.Id, buyer.Email));
+            buyer.PurchasedProducts.Add(product);
+            transactions.Add(new Transaction(product.Id, buyer, product.Seller));
 
-            Console.WriteLine($"Kupnja proizvoda "{product.Name}" je uspješna!");
+            Console.WriteLine($"Kupnja je uspješna!");
             return true;
         }
 
         public bool ReturnProduct(Buyer buyer, Guid productId)
         {
-            var transaction = transactions.FirstOrDefault(t => t.ProductId == productId && t.BuyerEmail == buyer.Email);
+            var product = FindProductById(productId);
+            var transaction = transactions.FirstOrDefault(t => t.ProductId == productId && t.buyerEmail == buyer.Email);
             if (transaction == null)
             {
                 Console.WriteLine("Povrat nije moguć jer transakcija nije pronađena.");
                 return false;
             }
-            var product = products.FirstOrDefault(p => p.Id == productId);
             decimal refundAmount = product.Price * 0.8m;
             buyer.Balance += refundAmount;
             product.Status = ProductStatus.ForSale;
 
-            Console.WriteLine($"Povrat proizvoda "{product.Name}" je uspješan!");
+            Console.WriteLine($"Povrat je uspješan!");
             return true;
         }
 
+        public void AddToFavourites(Buyer buyer, Guid productId)
+        {
+            var product = FindProductById(productId);
 
+            if (!buyer.FavoriteProducts.Contains(product))
+            {
+                buyer.FavoriteProducts.Add(product);
+                Console.WriteLine($"{product.Name} je dodan na vašu listu omiljenih proizvoda.");
+            }
+            else Console.WriteLine($"{product.Name} je već na vašoj listi omiljenih proizvoda.");
+        }
 
+        public void ViewFavoriteProducts(Buyer buyer)
+        {
+            if (buyer.FavoriteProducts.Count == 0)
+            {
+                Console.WriteLine("Nemate omiljenih proizvoda.");
+                return;
+            }
 
+            Console.WriteLine("Vaša lista omiljenih proizvoda:");
+            foreach (var product in buyer.FavoriteProducts)
+                Console.WriteLine($"- {product.Name}, Cijena: {product.Price}");
+        }
+
+        public void ViewPurchaseHistory(Buyer buyer)
+        {
+            if (buyer.PurchasedProducts.Count == 0)
+            {
+                Console.WriteLine("Nemate kupljenih proizvoda.");
+                return;
+            }
+
+            Console.WriteLine("Povijest kupljenih proizvoda:");
+            foreach (var product in buyer.PurchasedProducts)
+                Console.WriteLine($"- {product.Name}, Cijena: {product.Price}");
+        }
     }
 }
