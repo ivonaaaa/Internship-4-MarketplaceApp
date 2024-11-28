@@ -160,5 +160,57 @@ namespace MarketplaceApp.Domain
             foreach (var product in buyer.PurchasedProducts)
                 Console.WriteLine($"- {product.Name}, Cijena: {product.Price}");
         }
+
+        public void AddProduct(string name, string description, decimal price, Seller seller, ProductCategory category)
+        {
+            Product newProduct = new Product(name, description, price, seller, category);
+            seller.ProductsForSale.Add(newProduct);
+            Console.WriteLine($"Proizvod '{name}' uspješno dodan u ponudu.");
+        }
+
+        public void ViewProducts(Seller seller)
+        {
+            if (seller.ProductsForSale.Count == 0)
+            {
+                Console.WriteLine("Nemate proizvode u ponudi.");
+                return;
+            }
+
+            foreach (var product in seller.ProductsForSale)
+                Console.WriteLine($"Naziv: {product.Name}, Opis: {product.Description}, Cijena: {product.Price:C}, Status: {product.Status}");
+        }
+
+        public void ViewTotalEarnings(Seller seller)
+        {
+            Console.WriteLine($"Ukupna zarada od prodaje: {seller.TotalEarnings}");
+        }
+
+        public void ViewSoldProductsByCategory(Seller seller, ProductCategory category)
+        {
+            var soldProducts = seller.ProductsForSale
+                .Where(p => p.Status == ProductStatus.Sold && p.Category == category)
+                .ToList();
+
+            if (soldProducts.Count == 0)
+            {
+                Console.WriteLine($"Nema prodanih proizvoda u kategoriji {category}.");
+                return;
+            }
+
+            foreach (var product in soldProducts)
+                Console.WriteLine($"Naziv: {product.Name}, Opis: {product.Description}, Cijena: {product.Price}");
+        }
+
+        public void ViewEarningsInTimePeriod(Seller seller, DateTime startDate, DateTime endDate)
+        {
+            decimal totalEarnings = 0;
+            foreach (var product in seller.ProductsForSale.Where(p => p.Status == ProductStatus.Sold))
+            {
+                var transaction = transactions.FirstOrDefault(t => t.ProductId == product.Id && t.TransactionDate >= startDate && t.TransactionDate <= endDate);
+                if (transaction != null)
+                    totalEarnings += product.Price * 0.95m;
+            }
+            Console.WriteLine($"Zarada u razdoblju od {startDate.ToShortDateString()} do {endDate.ToShortDateString()}: {totalEarnings}");
+        }
     }
 }
