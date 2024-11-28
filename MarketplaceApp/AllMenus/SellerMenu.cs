@@ -51,7 +51,6 @@ namespace MarketplaceApp.Presentation.AllMenus
                         ViewEarningsForTimePeriod();
                         break;
                     case "6":
-                        //Console.Clear();
                         exit = true;
                         break;
                     default:

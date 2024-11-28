@@ -170,14 +170,16 @@ namespace MarketplaceApp.Domain
             var productCategory = Services.Service.ParseCategory(category);
             var product = new Product(name, description, price, seller, productCategory);
             products.Add(product);
+            seller.ProductsForSale.Add(product);
             Console.WriteLine($"Proizvod '{name}' uspješno dodan.");
         }
 
 
         public List<ProductDto> ViewProducts(SellerDto sellerDto)
         {
-            return products
-                .Where(p => p.Seller.Email == sellerDto.Email)
+            var seller = users.OfType<Seller>().FirstOrDefault(s => s.Email.Equals(sellerDto.Email, StringComparison.OrdinalIgnoreCase));
+
+            return seller.ProductsForSale
                 .Select(p => MappingService.MapToProductDto(p))
                 .ToList();
         }
