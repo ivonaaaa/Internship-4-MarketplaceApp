@@ -9,7 +9,7 @@ using MarketplaceApp.Domain.Dtos;
 
 namespace MarketplaceApp.Domain.Services
 {
-    public static class UserMappingService
+    public static class MappingService
     {
         public static UserDto MapToUserDto(Users user)
         {
@@ -26,18 +26,23 @@ namespace MarketplaceApp.Domain.Services
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                //Status = product.Status
+                Status = product.Status
             };
         }
 
         public static BuyerDto MapToBuyerDto(Buyer buyer)
         {
-            return new BuyerDto
-            {
-                Name = buyer.Name,
-                Email = buyer.Email,
-                Balance = buyer.Balance
-            };
+            return new BuyerDto(buyer.Name, buyer.Email, buyer.Balance);
+        }
+
+        public static SellerDto MapToSellerDto(Seller seller)
+        {
+            return new SellerDto(seller.Name, seller.Email, seller.TotalEarnings);
+        }
+
+        public static Seller MapToSeller(SellerDto sellerDto)
+        {
+            return new Seller(sellerDto.Name, sellerDto.Email);
         }
 
     }

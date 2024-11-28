@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MarketplaceApp.Domain;
+using MarketplaceApp.Domain.Dtos;
 
 namespace MarketplaceApp.Presentation
 {
@@ -32,9 +33,24 @@ namespace MarketplaceApp.Presentation
                         break;
                     case "2":
                         var loginMenu = new LoginMenu(marketplace);
-                        loginMenu.ShowLoginMenu();
+                        var loggedInUser = loginMenu.ShowLoginMenu();
+
+                        if (loggedInUser != null)
+                        {
+                            if (loggedInUser is BuyerDto buyer)
+                            {
+                                var buyerMenu = new BuyerMenu(marketplace, buyer);
+                                buyerMenu.ShowBuyerMenu();
+                            }
+                            else if (loggedInUser is SellerDto seller)
+                            {
+                                var sellerMenu = new SellerMenu(marketplace, seller);
+                                sellerMenu.ShowSellerMenu();
+                            }
+                        }
                         break;
                     case "3":
+                        Console.WriteLine("\nHvala što ste koristili Marketplace aplikaciju!");
                         Console.WriteLine("Izlazim iz aplikacije...");
                         exit = true;
                         break;
@@ -43,7 +59,6 @@ namespace MarketplaceApp.Presentation
                         break;
                 }
             }
-            Console.WriteLine("Hvala što ste koristili Marketplace aplikaciju!");
         }
     }
 }

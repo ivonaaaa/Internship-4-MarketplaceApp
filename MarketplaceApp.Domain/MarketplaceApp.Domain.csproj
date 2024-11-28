@@ -45,12 +45,13 @@
   <ItemGroup>
     <Compile Include="Dtos\BuyerDto.cs" />
     <Compile Include="Dtos\ProductDto.cs" />
+    <Compile Include="Dtos\SellerDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Marketplace.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service.cs" />
-    <Compile Include="Services\UserMappingService.cs" />
+    <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\MappingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,4 +1,5 @@
 ﻿using MarketplaceApp.Domain;
+using MarketplaceApp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,7 @@ namespace MarketplaceApp.Presentation.AllMenus
 
         public void ShowRegisterMenu()
         {
-            Console.WriteLine("Želite li se registrirati kao kupac ili prodavač?");
-            Console.WriteLine("1 - Kupac");
-            Console.WriteLine("2 - Prodavač");
-            Console.Write("\nOdaberite opciju: ");
-            var choice = Console.ReadLine();
+            string choice = Helper.GetValidInputFromUser("Želite li se registrirati kao kupac ili prodavač?", new[] { "1", "2" });
 
             switch (choice)
             {
@@ -40,21 +37,16 @@ namespace MarketplaceApp.Presentation.AllMenus
 
         private void RegisterBuyer()
         {
-            Console.Write("Unesite ime: ");
-            var name = Console.ReadLine();
-            Console.Write("Unesite e-mail: ");
-            var email = Console.ReadLine();
-            Console.Write("Unesite početni balans: ");
-            var balance = Convert.ToDecimal(Console.ReadLine());
+            string name = Console.ReadLine();
+            string email = Helper.GetValidEmailInput("Unesite e-mail: ");
+            decimal balance = Helper.GetValidDecimalInput("Unesite početni balans: ");
             _marketplace.RegisterBuyer(name, email, balance);
         }
 
         private void RegisterSeller()
         {
-            Console.Write("Unesite ime: ");
-            var name = Console.ReadLine();
-            Console.Write("Unesite e-mail: ");
-            var email = Console.ReadLine();
+            string name = Console.ReadLine();
+            string email = Helper.GetValidEmailInput("Unesite e-mail: ");
             _marketplace.RegisterSeller(name, email);
         }
     }

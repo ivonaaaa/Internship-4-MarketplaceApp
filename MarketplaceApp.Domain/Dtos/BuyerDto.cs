@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace MarketplaceApp.Domain.Dtos
 {
-    public class BuyerDto
+    public class BuyerDto : UserDto
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
         public decimal Balance { get; set; }
+
+        public BuyerDto(string name, string email, decimal balance) : base(name, email)
+        {
+            Balance = balance;
+        }
     }
 }
 

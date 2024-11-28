@@ -7,7 +7,7 @@ using MarketplaceApp.Data;
 using MarketplaceApp.Data.Enums;
 using MarketplaceApp.Data.Seeds;
 
-namespace MarketplaceApp.Domain
+namespace MarketplaceApp.Domain.Services
 {
     public class Service
     {
@@ -30,6 +30,13 @@ namespace MarketplaceApp.Domain
                 return 0m;
             }
             return code.Discount;
+        }
+
+        public static ProductCategory ParseCategory(string category)
+        {
+            if (Enum.TryParse<ProductCategory>(category, true, out var result))
+                return result;
+            else throw new ArgumentException("Nevažeća kategorija.");
         }
     }
 }

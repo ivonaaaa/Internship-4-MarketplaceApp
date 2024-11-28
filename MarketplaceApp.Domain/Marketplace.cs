@@ -21,7 +21,7 @@ namespace MarketplaceApp.Domain
 
         public void RegisterBuyer(string name, string email, decimal balance)
         {
-            if (Service.IsValidEmail(email) && !UserExists(email))
+            if (Services.Service.IsValidEmail(email) && !UserExists(email))
             {
                 var buyer = new Buyer(name, email, balance);
                 users.Add(buyer);
@@ -41,10 +41,16 @@ namespace MarketplaceApp.Domain
             else Console.WriteLine("Krivi email ili prodavač s tim emailom već postoji!");
         }
 
-        public UserDto Login(string email)
+        public object Login(string email)
         {
             var user = users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
-            return UserMappingService.MapToUserDto(user);
+            if (user == null)
+                return null;
+            if (user is Buyer buyer)
+                return MappingService.MapToBuyerDto(buyer);
+            else if (user is Seller seller)
+                return MappingService.MapToSellerDto(seller);
+            return null;
         }
 
         private bool UserExists(string email)
@@ -56,7 +62,7 @@ namespace MarketplaceApp.Domain
         {
             return products
                 .Where(p => p.Status == ProductStatus.ForSale)
-                .Select(p => UserMappingService.MapToProductDto(p))
+                .Select(p => MappingService.MapToProductDto(p))
                 .ToList();
         }
 
@@ -140,7 +146,7 @@ namespace MarketplaceApp.Domain
                 return new List<ProductDto>();
             }
             Console.WriteLine("Vaša lista omiljenih proizvoda:");
-            var favoriteProducts = buyer.FavoriteProducts.Select(UserMappingService.MapToProductDto).ToList();
+            var favoriteProducts = buyer.FavoriteProducts.Select(MappingService.MapToProductDto).ToList();
 
             foreach (var product in favoriteProducts)
                 Console.WriteLine($"- {product.Name}, Cijena: {product.Price:C}, Opis: {product.Description}");
@@ -154,60 +160,71 @@ namespace MarketplaceApp.Domain
             if (buyer == null)
                 return new List<ProductDto>();
 
-            return buyer.PurchasedProducts.Select(UserMappingService.MapToProductDto).ToList();
+            return buyer.PurchasedProducts.Select(MappingService.MapToProductDto).ToList();
         }
 
 
-        public void AddProduct(string name, string description, decimal price, Seller seller, ProductCategory category)
+        public void AddProduct(string name, string description, decimal price, SellerDto sellerDto, string category)
         {
-            Product newProduct = new Product(name, description, price, seller, category);
-            seller.ProductsForSale.Add(newProduct);
-            Console.WriteLine($"Proizvod '{name}' uspješno dodan u ponudu.");
+            var seller = MappingService.MapToSeller(sellerDto);
+            var productCategory = Services.Service.ParseCategory(category);
+            var product = new Product(name, description, price, seller, productCategory);
+            products.Add(product);
+            Console.WriteLine($"Proizvod '{name}' uspješno dodan.");
         }
 
-        public void ViewProducts(Seller seller)
-        {
-            if (seller.ProductsForSale.Count == 0)
-            {
-                Console.WriteLine("Nemate proizvode u ponudi.");
-                return;
-            }
 
-            foreach (var product in seller.ProductsForSale)
-                Console.WriteLine($"Naziv: {product.Name}, Opis: {product.Description}, Cijena: {product.Price:C}, Status: {product.Status}");
-        }
-
-        public void ViewTotalEarnings(Seller seller)
+        public List<ProductDto> ViewProducts(SellerDto sellerDto)
         {
-            Console.WriteLine($"Ukupna zarada od prodaje: {seller.TotalEarnings}");
-        }
-
-        public void ViewSoldProductsByCategory(Seller seller, ProductCategory category)
-        {
-            var soldProducts = seller.ProductsForSale
-                .Where(p => p.Status == ProductStatus.Sold && p.Category == category)
+            return products
+                .Where(p => p.Seller.Email == sellerDto.Email)
+                .Select(p => MappingService.MapToProductDto(p))
                 .ToList();
-
-            if (soldProducts.Count == 0)
-            {
-                Console.WriteLine($"Nema prodanih proizvoda u kategoriji {category}.");
-                return;
-            }
-
-            foreach (var product in soldProducts)
-                Console.WriteLine($"Naziv: {product.Name}, Opis: {product.Description}, Cijena: {product.Price}");
         }
 
-        public void ViewEarningsInTimePeriod(Seller seller, DateTime startDate, DateTime endDate)
+        public decimal ViewTotalEarnings(SellerDto sellerDto)
+        {
+            return products
+                .Where(p => p.Seller.Email == sellerDto.Email && p.Status == ProductStatus.Sold)
+                .Sum(p => p.Price * 0.95m);
+        }
+
+        public List<ProductDto> ViewSoldProductsByCategory(SellerDto sellerDto, string category)
+        {
+            try
+            {
+                ProductCategory categoryEnum = Services.Service.ParseCategory(category);
+
+                return products
+                    .Where(p => p.Seller.Email == sellerDto.Email && p.Category == categoryEnum && p.Status == ProductStatus.Sold)
+                    .Select(p => MappingService.MapToProductDto(p))
+                    .ToList();
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Neispravna kategorija. Pokušajte ponovo.");
+                return new List<ProductDto>();
+            }
+        }
+
+
+        public decimal ViewEarningsInTimePeriod(SellerDto sellerDto, DateTime startDate, DateTime endDate)
         {
             decimal totalEarnings = 0;
-            foreach (var product in seller.ProductsForSale.Where(p => p.Status == ProductStatus.Sold))
+
+            foreach (var transaction in transactions)
             {
-                var transaction = transactions.FirstOrDefault(t => t.ProductId == product.Id && t.TransactionDate >= startDate && t.TransactionDate <= endDate);
-                if (transaction != null)
-                    totalEarnings += product.Price * 0.95m;
+                if (transaction.SellerEmail == sellerDto.Email && transaction.TransactionDate >= startDate && transaction.TransactionDate <= endDate)
+                {
+                    var product = products.FirstOrDefault(p => p.Id == transaction.ProductId);
+                    if (product != null && product.Status == ProductStatus.Sold)
+                    {
+                        decimal earnings = product.Price * 0.95m;
+                        totalEarnings += earnings;
+                    }
+                }
             }
-            Console.WriteLine($"Zarada u razdoblju od {startDate.ToShortDateString()} do {endDate.ToShortDateString()}: {totalEarnings}");
+            return totalEarnings;
         }
     }
 }

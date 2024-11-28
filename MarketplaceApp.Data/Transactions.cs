@@ -10,15 +10,15 @@ namespace MarketplaceApp.Data
     public class Transaction
     {
         public Guid ProductId { get; private set; }
-        public string buyerEmail { get; private set; }
-        public string sellerEmail { get; private set; }
+        public string BuyerEmail { get; private set; }
+        public string SellerEmail { get; private set; }
         public DateTime TransactionDate { get; private set; }
 
         public Transaction(Guid productId, Buyer buyer, Seller seller)
         {
             ProductId = productId;
-            buyerEmail = buyer.Email;
-            buyerEmail = seller.Email;
+            BuyerEmail = buyer.Email;
+            SellerEmail = seller.Email;
             TransactionDate = DateTime.Now;
         }
     }
