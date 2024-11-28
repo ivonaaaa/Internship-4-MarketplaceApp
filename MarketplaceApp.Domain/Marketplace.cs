@@ -65,5 +65,100 @@ namespace MarketplaceApp.Domain
         {
             return products.Where(p => p.Category == category && p.Status == ProductStatus.ForSale).ToList();
         }
+
+        public Product FindProductById(Guid productId)
+        {
+            var product = products.FirstOrDefault(p => p.Id == productId);
+            if (product == null)
+            {
+                Console.WriteLine("Proizvod nije pronađen.");
+            }
+            return product;
+        }
+
+        public void BuyProduct(Buyer buyer, Guid productId, string promoCode = null)
+        {
+            var product = FindProductById(productId);
+
+            decimal finalPrice = product.Price;
+            if (!string.IsNullOrEmpty(promoCode))
+            {
+                var discount = Service.ApplyPromoCode(promoCode, product.Category);
+                if (discount > 0)
+                {
+                    finalPrice -= finalPrice * discount;
+                    Console.WriteLine($"Promo kod primijenjen! Nova cijena: {finalPrice:C}");
+                }
+                else Console.WriteLine("Nevažeć promo kod.");
+            }
+
+            if (buyer.Balance < finalPrice)
+            {
+                Console.WriteLine("Nemate dovoljno sredstava.");
+                return;
+            }
+
+            buyer.Balance -= finalPrice;
+            product.Seller.TotalEarnings += finalPrice * 0.95m;
+            product.Status = ProductStatus.Sold;
+            buyer.PurchasedProducts.Add(product);
+            transactions.Add(new Transaction(product.Id, buyer, product.Seller));
+
+            Console.WriteLine($"Kupnja je uspješna!");
+        }
+
+        public void ReturnProduct(Buyer buyer, Guid productId)
+        {
+            var product = FindProductById(productId);
+            var transaction = transactions.FirstOrDefault(t => t.ProductId == productId && t.buyerEmail == buyer.Email);
+            if (transaction == null)
+            {
+                Console.WriteLine("Povrat nije moguć jer transakcija nije pronađena.");
+                return;
+            }
+            decimal refundAmount = product.Price * 0.8m;
+            buyer.Balance += refundAmount;
+            product.Status = ProductStatus.ForSale;
+
+            Console.WriteLine($"Povrat je uspješan!");
+        }
+
+        public void AddToFavourites(Buyer buyer, Guid productId)
+        {
+            var product = FindProductById(productId);
+
+            if (!buyer.FavoriteProducts.Contains(product))
+            {
+                buyer.FavoriteProducts.Add(product);
+                Console.WriteLine($"{product.Name} je dodan na vašu listu omiljenih proizvoda.");
+            }
+            else Console.WriteLine($"{product.Name} je već na vašoj listi omiljenih proizvoda.");
+        }
+
+        public void ViewFavoriteProducts(Buyer buyer)
+        {
+            if (buyer.FavoriteProducts.Count == 0)
+            {
+                Console.WriteLine("Nemate omiljenih proizvoda.");
+                return;
+            }
+
+            Console.WriteLine("Vaša lista omiljenih proizvoda:");
+            foreach (var product in buyer.FavoriteProducts)
+                Console.WriteLine($"- {product.Name}, Cijena: {product.Price}");
+        }
+
+        public void ViewPurchaseHistory(Buyer buyer)
+        {
+            if (buyer.PurchasedProducts.Count == 0)
+            {
+                Console.WriteLine("Nemate kupljenih proizvoda.");
+                return;
+            }
+
+            Console.WriteLine("Povijest kupljenih proizvoda:");
+            foreach (var product in buyer.PurchasedProducts)
+                Console.WriteLine($"- {product.Name}, Cijena: {product.Price}");
+        }
     }
 }
