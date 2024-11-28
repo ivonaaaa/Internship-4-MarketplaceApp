@@ -51,5 +51,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarketplaceApp.Data\MarketplaceApp.Data.csproj">
+      <Project>{54fc33c1-92c1-4623-911c-7fb8f9a5bbe9}</Project>
+      <Name>MarketplaceApp.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

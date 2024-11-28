@@ -54,5 +54,11 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarketplaceApp.Domain\MarketplaceApp.Domain.csproj">
+      <Project>{af42183c-3417-456c-bdfb-297d3677761c}</Project>
+      <Name>MarketplaceApp.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
