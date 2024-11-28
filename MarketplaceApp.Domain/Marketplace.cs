@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MarketplaceApp.Data;
 using MarketplaceApp.Data.UserTypes;
 using MarketplaceApp.Data.Enums;
+using MarketplaceApp.Domain.Dtos;
+using MarketplaceApp.Domain.Services;
 
 namespace MarketplaceApp.Domain
 {
@@ -39,21 +41,15 @@ namespace MarketplaceApp.Domain
             else Console.WriteLine("Krivi email ili prodavač s tim emailom već postoji!");
         }
 
+        public UserDto Login(string email)
+        {
+            var user = users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            return UserMappingService.MapToUserDto(user);
+        }
+
         private bool UserExists(string email)
         {
             return users.Any(users => users.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public Users Login(string email)
-        {
-            var user = users.FirstOrDefault(u => u.Email == email);
-            if (user == null)
-            {
-                Console.WriteLine("Korisnik nije pronađen.");
-                return null;
-            }
-            Console.WriteLine($"Dobrodošli, {user.Name}");
-            return user;
         }
 
         public List<Product> GetAvailableProducts()

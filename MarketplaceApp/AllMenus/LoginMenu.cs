@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MarketplaceApp.Domain.Dtos;
 
 namespace MarketplaceApp.Presentation.AllMenus
 {
@@ -20,11 +21,16 @@ namespace MarketplaceApp.Presentation.AllMenus
             Console.Write("Unesite e-mail: ");
             var email = Console.ReadLine();
 
-            var user = _marketplace.Login(email);
+            var userDto = _marketplace.Login(email);
 
-            if (user != null)
-                Console.WriteLine($"Dobrodošli, {user.Name}!");
-            else Console.WriteLine("Neispravan e-mail. Pokušajte ponovo.");
+            if (userDto != null)
+            {
+                Console.WriteLine($"Dobrodošli, {userDto.Name}!");
+            }
+            else
+            {
+                Console.WriteLine("Neispravan e-mail. Pokušajte ponovo.");
+            }
         }
     }
 }
