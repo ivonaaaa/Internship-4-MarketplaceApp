@@ -34,14 +34,22 @@ namespace MarketplaceApp.Helpers
 
         public static string GetValidEmailInput(string prompt)
         {
-            string email;
-            do
+            string email = string.Empty;
+
+            while (string.IsNullOrEmpty(email) || !email.Contains("@") || !email.Contains("."))
             {
                 Console.WriteLine(prompt);
                 email = Console.ReadLine();
-            } while (string.IsNullOrEmpty(email) || !email.Contains("@"));
+
+                if (string.IsNullOrEmpty(email) || !email.Contains("@") || !email.Contains("."))
+                {
+                    Console.WriteLine("Nevažeći unos. Email mora sadržavati znakove '@' i '.'");
+                }
+            }
             return email;
         }
+
+
 
         public static string SelectCategory()
         {

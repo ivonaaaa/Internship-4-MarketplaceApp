@@ -23,13 +23,10 @@ namespace MarketplaceApp.Presentation.AllMenus
             var userDto = _marketplace.Login(email);
 
             if (userDto != null)
-            {
-                Console.WriteLine($"Dobrodošli!");
                 return (UserDto)userDto;
-            }
             else
             {
-                Console.WriteLine("Neispravan e-mail. Pokušajte ponovo.");
+                Console.WriteLine("Neispravan e-mail.");
                 return null;
             }
         }

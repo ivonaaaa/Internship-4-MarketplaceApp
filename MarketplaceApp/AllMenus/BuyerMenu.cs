@@ -20,7 +20,8 @@ namespace MarketplaceApp.Presentation.AllMenus
             bool exit = false;
             while (!exit)
             {
-                Console.WriteLine("\n--- KUPAC MENU ---");
+                Console.Clear();
+                Console.WriteLine("\n--- MENU ZA KUPCE ---");
                 Console.WriteLine("1 - Pregled svih proizvoda");
                 Console.WriteLine("2 - Kupnja proizvoda");
                 Console.WriteLine("3 - Povrat kupljenog proizvoda");
@@ -35,27 +36,34 @@ namespace MarketplaceApp.Presentation.AllMenus
                 {
                     case "1":
                         ShowAvailableProducts();
+                        Console.ReadKey();
                         break;
                     case "2":
                         BuyProduct();
+                        Console.ReadKey();
                         break;
                     case "3":
                         ReturnProduct();
+                        Console.ReadKey();
                         break;
                     case "4":
                         AddToFavourites();
+                        Console.ReadKey();
                         break;
                     case "5":
                         ViewPurchaseHistory();
+                        Console.ReadKey();
                         break;
                     case "6":
                         ViewFavoriteProducts();
+                        Console.ReadKey();
                         break;
                     case "7":
                         exit = true;
                         break;
                     default:
                         Console.WriteLine("Nevažeća opcija. Pokušajte ponovo.");
+                        Console.ReadKey();
                         break;
                 }
             }

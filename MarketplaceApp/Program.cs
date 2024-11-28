@@ -15,15 +15,16 @@ namespace MarketplaceApp.Presentation
 
         static void Main(string[] args)
         {
-            Console.WriteLine("--- MARKETPLACE APP ---");
-            Console.WriteLine("1 - Registracija");
-            Console.WriteLine("2 - Prijava");
-            Console.WriteLine("3 - Izlazak");
-            Console.Write("\nOdaberite opciju: ");
-
             bool exit = false;
             while (!exit)
             {
+                Console.Clear();
+                Console.WriteLine("--- MARKETPLACE APP ---");
+                Console.WriteLine("1 - Registracija");
+                Console.WriteLine("2 - Prijava");
+                Console.WriteLine("3 - Izlazak");
+                Console.Write("\nOdaberite opciju: ");
+
                 var choice = Console.ReadLine();
                 switch (choice)
                 {
@@ -31,6 +32,7 @@ namespace MarketplaceApp.Presentation
                         var registerMenu = new RegisterMenu(marketplace);
                         registerMenu.ShowRegisterMenu();
                         break;
+
                     case "2":
                         var loginMenu = new LoginMenu(marketplace);
                         var loggedInUser = loginMenu.ShowLoginMenu();
@@ -49,16 +51,20 @@ namespace MarketplaceApp.Presentation
                             }
                         }
                         break;
+
                     case "3":
-                        Console.WriteLine("\nHvala što ste koristili Marketplace aplikaciju!");
+                        Console.WriteLine("\nHvala što ste koristili Marketplace aplikaciju! :D");
                         Console.WriteLine("Izlazim iz aplikacije...");
                         exit = true;
                         break;
+
                     default:
                         Console.WriteLine("Nevažeća opcija. Pokušajte ponovo.\n");
+                        Console.ReadKey();
                         break;
                 }
             }
         }
+
     }
 }

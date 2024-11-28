@@ -18,7 +18,7 @@ namespace MarketplaceApp.Presentation.AllMenus
 
         public void ShowRegisterMenu()
         {
-            string choice = Helper.GetValidInputFromUser("Želite li se registrirati kao kupac ili prodavač?", new[] { "1", "2" });
+            string choice = Helper.GetValidInputFromUser("Želite li se registrirati kao kupac ili prodavač?\n1 - Kupac\n2 - Prodavač", new[] { "1", "2" });
 
             switch (choice)
             {
@@ -37,6 +37,7 @@ namespace MarketplaceApp.Presentation.AllMenus
 
         private void RegisterBuyer()
         {
+            Console.WriteLine("Unesite ime:");
             string name = Console.ReadLine();
             string email = Helper.GetValidEmailInput("Unesite e-mail: ");
             decimal balance = Helper.GetValidDecimalInput("Unesite početni balans: ");
@@ -45,6 +46,7 @@ namespace MarketplaceApp.Presentation.AllMenus
 
         private void RegisterSeller()
         {
+            Console.WriteLine("Unesite ime:");
             string name = Console.ReadLine();
             string email = Helper.GetValidEmailInput("Unesite e-mail: ");
             _marketplace.RegisterSeller(name, email);
