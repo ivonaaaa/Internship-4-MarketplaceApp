@@ -52,9 +52,12 @@ namespace MarketplaceApp.Domain
             return users.Any(users => users.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
-        public List<Product> GetAvailableProducts()
+        public List<ProductDto> GetAvailableProducts()
         {
-            return products.Where(p => p.Status == ProductStatus.ForSale).ToList();
+            return products
+                .Where(p => p.Status == ProductStatus.ForSale)
+                .Select(p => UserMappingService.MapToProductDto(p))
+                .ToList();
         }
 
         public List<Product> GetAvailableProductsByCategory(ProductCategory category)
@@ -72,90 +75,88 @@ namespace MarketplaceApp.Domain
             return product;
         }
 
-        public void BuyProduct(Buyer buyer, Guid productId, string promoCode = null)
+        public bool BuyProduct(string buyerEmail, Guid productId)
         {
-            var product = FindProductById(productId);
+            var buyer = users.OfType<Buyer>().FirstOrDefault(b => b.Email.Equals(buyerEmail, StringComparison.OrdinalIgnoreCase));
+            var product = products.FirstOrDefault(p => p.Id == productId);
 
-            decimal finalPrice = product.Price;
-            if (!string.IsNullOrEmpty(promoCode))
-            {
-                var discount = Service.ApplyPromoCode(promoCode, product.Category);
-                if (discount > 0)
-                {
-                    finalPrice -= finalPrice * discount;
-                    Console.WriteLine($"Promo kod primijenjen! Nova cijena: {finalPrice:C}");
-                }
-                else Console.WriteLine("Nevažeć promo kod.");
-            }
+            if (buyer == null || product == null || product.Status != ProductStatus.ForSale)
+                return false;
 
-            if (buyer.Balance < finalPrice)
-            {
-                Console.WriteLine("Nemate dovoljno sredstava.");
-                return;
-            }
+            if (buyer.Balance < product.Price)
+                return false;
 
-            buyer.Balance -= finalPrice;
-            product.Seller.TotalEarnings += finalPrice * 0.95m;
+            buyer.Balance -= product.Price;
             product.Status = ProductStatus.Sold;
             buyer.PurchasedProducts.Add(product);
-            transactions.Add(new Transaction(product.Id, buyer, product.Seller));
 
-            Console.WriteLine($"Kupnja je uspješna!");
+            return true;
         }
 
-        public void ReturnProduct(Buyer buyer, Guid productId)
+        public bool ReturnProduct(BuyerDto buyerDto, Guid productId)
         {
-            var product = FindProductById(productId);
-            var transaction = transactions.FirstOrDefault(t => t.ProductId == productId && t.buyerEmail == buyer.Email);
-            if (transaction == null)
+            var buyer = users.OfType<Buyer>().FirstOrDefault(b => b.Email.Equals(buyerDto.Email, StringComparison.OrdinalIgnoreCase));
+            var product = products.FirstOrDefault(p => p.Id == productId);
+
+            if (buyer == null || product == null || !buyer.PurchasedProducts.Contains(product))
             {
-                Console.WriteLine("Povrat nije moguć jer transakcija nije pronađena.");
-                return;
+                Console.WriteLine("Povrat nije moguć jer proizvod nije pronađen ili nije kupljen.");
+                return false;
             }
+
             decimal refundAmount = product.Price * 0.8m;
             buyer.Balance += refundAmount;
             product.Status = ProductStatus.ForSale;
+            buyer.PurchasedProducts.Remove(product);
 
-            Console.WriteLine($"Povrat je uspješan!");
+            Console.WriteLine($"Povrat proizvoda '{product.Name}' uspješno obavljen. Vraćeno: {refundAmount:C}.");
+            return true;
         }
 
-        public void AddToFavourites(Buyer buyer, Guid productId)
+
+        public bool AddToFavourites(BuyerDto buyerDto, Guid productId)
         {
-            var product = FindProductById(productId);
+            var buyer = users.OfType<Buyer>().FirstOrDefault(b => b.Email.Equals(buyerDto.Email, StringComparison.OrdinalIgnoreCase));
+            var product = products.FirstOrDefault(p => p.Id == productId);
+
+            if (buyer == null || product == null)
+                return false;
 
             if (!buyer.FavoriteProducts.Contains(product))
             {
                 buyer.FavoriteProducts.Add(product);
-                Console.WriteLine($"{product.Name} je dodan na vašu listu omiljenih proizvoda.");
+                return true;
             }
-            else Console.WriteLine($"{product.Name} je već na vašoj listi omiljenih proizvoda.");
+
+            return false;
         }
 
-        public void ViewFavoriteProducts(Buyer buyer)
+        public List<ProductDto> ViewFavoriteProducts(BuyerDto buyerDto)
         {
-            if (buyer.FavoriteProducts.Count == 0)
+            var buyer = users.OfType<Buyer>().FirstOrDefault(b => b.Email.Equals(buyerDto.Email, StringComparison.OrdinalIgnoreCase));
+            if (buyer == null || buyer.FavoriteProducts.Count == 0)
             {
                 Console.WriteLine("Nemate omiljenih proizvoda.");
-                return;
+                return new List<ProductDto>();
             }
-
             Console.WriteLine("Vaša lista omiljenih proizvoda:");
-            foreach (var product in buyer.FavoriteProducts)
-                Console.WriteLine($"- {product.Name}, Cijena: {product.Price}");
+            var favoriteProducts = buyer.FavoriteProducts.Select(UserMappingService.MapToProductDto).ToList();
+
+            foreach (var product in favoriteProducts)
+                Console.WriteLine($"- {product.Name}, Cijena: {product.Price:C}, Opis: {product.Description}");
+            return favoriteProducts;
         }
 
-        public void ViewPurchaseHistory(Buyer buyer)
+
+        public List<ProductDto> ViewPurchaseHistory(BuyerDto buyerDto)
         {
-            if (buyer.PurchasedProducts.Count == 0)
-            {
-                Console.WriteLine("Nemate kupljenih proizvoda.");
-                return;
-            }
+            var buyer = users.OfType<Buyer>().FirstOrDefault(b => b.Email.Equals(buyerDto.Email, StringComparison.OrdinalIgnoreCase));
+            if (buyer == null)
+                return new List<ProductDto>();
 
-            Console.WriteLine("Povijest kupljenih proizvoda:");
-            foreach (var product in buyer.PurchasedProducts)
-                Console.WriteLine($"- {product.Name}, Cijena: {product.Price}");
+            return buyer.PurchasedProducts.Select(UserMappingService.MapToProductDto).ToList();
         }
+
 
         public void AddProduct(string name, string description, decimal price, Seller seller, ProductCategory category)
         {

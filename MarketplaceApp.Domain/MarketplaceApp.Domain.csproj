@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\BuyerDto.cs" />
+    <Compile Include="Dtos\ProductDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Marketplace.cs" />
     <Compile Include="Program.cs" />

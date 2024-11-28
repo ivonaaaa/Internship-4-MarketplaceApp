@@ -46,10 +46,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             var email = Console.ReadLine();
             Console.Write("Unesite početni balans: ");
             var balance = Convert.ToDecimal(Console.ReadLine());
-
             _marketplace.RegisterBuyer(name, email, balance);
-
-            Console.WriteLine($"Kupac {name} uspješno registriran!");
         }
 
         private void RegisterSeller()
@@ -58,10 +55,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             var name = Console.ReadLine();
             Console.Write("Unesite e-mail: ");
             var email = Console.ReadLine();
-
             _marketplace.RegisterSeller(name, email);
-
-            Console.WriteLine($"Prodavač {name} uspješno registriran!");
         }
     }
 }
