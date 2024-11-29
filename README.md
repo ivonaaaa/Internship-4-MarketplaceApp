@@ -11,7 +11,7 @@ This is a C# console application designed to mimic the working logic of a market
 <li>product menagement</li>
 <li>insight into products, transactions and incomes</li>
 
-### Installation
+### Installation and running
 To get started with this project, you need to have the following installed on your machine:
 
 1. **.NET SDK**: You can download the .NET SDK from the official [.NET website](https://dotnet.microsoft.com/download).
@@ -26,3 +26,8 @@ Steps to Install the Project:
    git clone https://github.com/ivonaaaa/Internship-4-MarketplaceApp.git
    
    cd Internship-4-MarketplaceApp
+
+2. **Set startup item**:
+   After opening the repository in Visual Studio, find the Program.cs file in the presentation layer (path is Internship-4-MarketplaceApp\MarketplaceApp\Program.cs).
+   Right click on the file and choose option "Set as Startup Item".
+3. **Run the code**
