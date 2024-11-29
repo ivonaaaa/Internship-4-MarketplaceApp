@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0BD05E-0EC9-4AD8-8F68-E56CCEDE3BB5}|MarketplaceApp\\MarketplaceApp.Presentation.csproj|c:\\users\\ivona\\onedrive\\desktop\\marketplaceapp\\marketplaceapp\\allmenus\\sellermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0BD05E-0EC9-4AD8-8F68-E56CCEDE3BB5}|MarketplaceApp\\MarketplaceApp.Presentation.csproj|solutionrelative:marketplaceapp\\allmenus\\sellermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0BD05E-0EC9-4AD8-8F68-E56CCEDE3BB5}|MarketplaceApp\\MarketplaceApp.Presentation.csproj|c:\\users\\ivona\\onedrive\\desktop\\marketplaceapp\\marketplaceapp\\allmenus\\buyermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0BD05E-0EC9-4AD8-8F68-E56CCEDE3BB5}|MarketplaceApp\\MarketplaceApp.Presentation.csproj|solutionrelative:marketplaceapp\\allmenus\\buyermenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0BD05E-0EC9-4AD8-8F68-E56CCEDE3BB5}|MarketplaceApp\\MarketplaceApp.Presentation.csproj|c:\\users\\ivona\\onedrive\\desktop\\marketplaceapp\\marketplaceapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0BD05E-0EC9-4AD8-8F68-E56CCEDE3BB5}|MarketplaceApp\\MarketplaceApp.Presentation.csproj|solutionrelative:marketplaceapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0BD05E-0EC9-4AD8-8F68-E56CCEDE3BB5}|MarketplaceApp\\MarketplaceApp.Presentation.csproj|c:\\users\\ivona\\onedrive\\desktop\\marketplaceapp\\marketplaceapp\\allmenus\\loginmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0BD05E-0EC9-4AD8-8F68-E56CCEDE3BB5}|MarketplaceApp\\MarketplaceApp.Presentation.csproj|solutionrelative:marketplaceapp\\allmenus\\loginmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 350,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BuyerMenu.cs",
+              "DocumentMoniker": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\MarketplaceApp\\AllMenus\\BuyerMenu.cs",
+              "RelativeDocumentMoniker": "MarketplaceApp\\AllMenus\\BuyerMenu.cs",
+              "ToolTip": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\MarketplaceApp\\AllMenus\\BuyerMenu.cs",
+              "RelativeToolTip": "MarketplaceApp\\AllMenus\\BuyerMenu.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAuwBUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T18:22:18.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SellerMenu.cs",
+              "DocumentMoniker": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\MarketplaceApp\\AllMenus\\SellerMenu.cs",
+              "RelativeDocumentMoniker": "MarketplaceApp\\AllMenus\\SellerMenu.cs",
+              "ToolTip": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\MarketplaceApp\\AllMenus\\SellerMenu.cs",
+              "RelativeToolTip": "MarketplaceApp\\AllMenus\\SellerMenu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T18:22:09.742Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\MarketplaceApp\\Program.cs",
+              "RelativeDocumentMoniker": "MarketplaceApp\\Program.cs",
+              "ToolTip": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\MarketplaceApp\\Program.cs",
+              "RelativeToolTip": "MarketplaceApp\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T18:12:23.946Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoginMenu.cs",
+              "DocumentMoniker": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\MarketplaceApp\\AllMenus\\LoginMenu.cs",
+              "RelativeDocumentMoniker": "MarketplaceApp\\AllMenus\\LoginMenu.cs",
+              "ToolTip": "C:\\Users\\ivona\\OneDrive\\Desktop\\MarketplaceApp\\MarketplaceApp\\AllMenus\\LoginMenu.cs",
+              "RelativeToolTip": "MarketplaceApp\\AllMenus\\LoginMenu.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T18:12:13.456Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

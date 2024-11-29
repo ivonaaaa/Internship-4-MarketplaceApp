@@ -23,7 +23,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             while (!exit)
             {
                 Console.Clear();
-                Console.WriteLine("\n--- MENU ZA PRODAVACE ---");
+                Console.WriteLine($"\n--- Pozdrav, {_seller.Name}! ---");
                 Console.WriteLine("1 - Dodaj proizvod");
                 Console.WriteLine("2 - Pregledaj svoje proizvode");
                 Console.WriteLine("3 - Pregledaj ukupnu zaradu");
@@ -101,7 +101,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             else
             {
                 foreach (var product in products)
-                    Console.WriteLine($"Naziv: {product.Name}, Cijena: {product.Price}");
+                    Console.WriteLine($"Naziv: {product.Name}, Cijena: {product.Price}, Status: {product.Status}");
             }
             Console.ReadKey();
         }

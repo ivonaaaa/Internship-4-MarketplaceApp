@@ -1,0 +1,14 @@
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.exe.config
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.exe
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.pdb
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.Domain.exe
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.Data.exe
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.Domain.pdb
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.Domain.exe.config
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.Data.pdb
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\bin\Debug\MarketplaceApp.Data.exe.config
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\obj\Debug\MarketplaceApp.Presentation.csproj.AssemblyReference.cache
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\obj\Debug\MarketplaceApp.Presentation.csproj.CoreCompileInputs.cache
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\obj\Debug\Marketpl.E56E8152.Up2Date
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\obj\Debug\MarketplaceApp.exe
+C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp\obj\Debug\MarketplaceApp.pdb

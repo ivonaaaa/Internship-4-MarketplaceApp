@@ -21,7 +21,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             while (!exit)
             {
                 Console.Clear();
-                Console.WriteLine("\n--- MENU ZA KUPCE ---");
+                Console.WriteLine($"\n--- Pozdrav, {_buyer.Name}! ---");
                 Console.WriteLine("1 - Pregled svih proizvoda");
                 Console.WriteLine("2 - Kupnja proizvoda");
                 Console.WriteLine("3 - Povrat kupljenog proizvoda");
@@ -29,7 +29,8 @@ namespace MarketplaceApp.Presentation.AllMenus
                 Console.WriteLine("5 - Pregled povijesti kupljenih proizvoda");
                 Console.WriteLine("6 - Pregled liste omiljenih proizvoda");
                 Console.WriteLine("7 - Povratak na glavni meni");
-                Console.Write("\nOdaberite opciju: ");
+                Console.WriteLine($"\nVaš balans na računu: {_buyer.Balance}");
+                Console.Write("Odaberite opciju: ");
 
                 var choice = Console.ReadLine();
                 switch (choice)
@@ -81,7 +82,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             Console.WriteLine("\nDostupni proizvodi:");
             foreach (var product in products)
             {
-                Console.WriteLine($"ID: {product.Id}, Naziv: {product.Name}, Cijena: {product.Price}, Opis: {product.Description}");
+                Console.WriteLine($"ID: {product.Id}, Naziv: {product.Name}, Cijena: {product.Price}, Opis: {product.Description}, Kategorija: {product.Category}");
             }
         }
 
