@@ -25,4 +25,4 @@ Steps to Install the Project:
    ```bash
    git clone https://github.com/ivonaaaa/Internship-4-MarketplaceApp.git
    
-   cd Internship-3-OOP
+   cd Internship-4-MarketplaceApp
