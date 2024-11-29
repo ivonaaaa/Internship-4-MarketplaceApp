@@ -174,7 +174,7 @@ namespace MarketplaceApp.Domain
 
         public void AddProduct(string name, string description, decimal price, SellerDto sellerDto, string category)
         {
-            var seller = Services.MappingService.MapToSeller(sellerDto);
+            var seller = users.OfType<Seller>().FirstOrDefault(s => s.Email.Equals(sellerDto.Email, StringComparison.OrdinalIgnoreCase));
             var productCategory = Services.Service.ParseCategory(category);
             var product = new Product(name, description, price, seller, productCategory);
             products.Add(product);
