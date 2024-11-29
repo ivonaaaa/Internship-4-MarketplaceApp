@@ -14,3 +14,10 @@ node_modules/
 
 # Ignore environment files
 .env
+
+# Ignore Visual Studio specific files
+.vs/
+
+# Ignore user-specific files
+*.user
+*.suo
