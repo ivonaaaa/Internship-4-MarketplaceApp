@@ -1,7 +1,0 @@
-C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp.Data\bin\Debug\MarketplaceApp.Data.exe.config
-C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp.Data\bin\Debug\MarketplaceApp.Data.exe
-C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp.Data\bin\Debug\MarketplaceApp.Data.pdb
-C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp.Data\obj\Debug\MarketplaceApp.Data.csproj.AssemblyReference.cache
-C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp.Data\obj\Debug\MarketplaceApp.Data.csproj.CoreCompileInputs.cache
-C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp.Data\obj\Debug\MarketplaceApp.Data.exe
-C:\Users\ivona\OneDrive\Desktop\MarketplaceApp\MarketplaceApp.Data\obj\Debug\MarketplaceApp.Data.pdb
