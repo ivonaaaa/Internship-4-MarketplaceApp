@@ -14,7 +14,7 @@ namespace MarketplaceApp.Domain
     public class Marketplace
     {
         public List<Users> users = new List<Users>();
-        private List<Product> products = new List<Product>();
+        public List<Product> products = new List<Product>();
         private List<Transaction> transactions = new List<Transaction>();
 
         public Marketplace() { }
@@ -27,7 +27,11 @@ namespace MarketplaceApp.Domain
                 users.Add(buyer);
                 Console.WriteLine("Kupac registriran uspješno!");
             }
-            else Console.WriteLine("Krivi email ili kupac s tim emailom već postoji!");
+            else
+            {
+                Console.WriteLine("Korisnik s tim emailom već postoji!");
+                return;
+            }
         }
 
         public void RegisterSeller(string name, string email)
@@ -38,7 +42,11 @@ namespace MarketplaceApp.Domain
                 users.Add(seller);
                 Console.WriteLine("Prodavač registriran uspješno!");
             }
-            else Console.WriteLine("Krivi email ili prodavač s tim emailom već postoji!");
+            else
+            {
+                Console.WriteLine("Korisnik s tim emailom već postoji!");
+                return;
+            }
         }
 
         public object Login(string email)
@@ -75,9 +83,7 @@ namespace MarketplaceApp.Domain
         {
             var product = products.FirstOrDefault(p => p.Id == productId);
             if (product == null)
-            {
                 Console.WriteLine("Proizvod nije pronađen.");
-            }
             return product;
         }
 
@@ -88,13 +94,15 @@ namespace MarketplaceApp.Domain
 
             if (buyer == null || product == null || product.Status != ProductStatus.ForSale)
                 return false;
-
             if (buyer.Balance < product.Price)
                 return false;
 
             buyer.Balance -= product.Price;
             product.Status = ProductStatus.Sold;
             buyer.PurchasedProducts.Add(product);
+
+            var transaction = new Transaction(product.Id, buyer, product.Seller, product.Price);
+            transactions.Add(transaction);
 
             return true;
         }
@@ -166,7 +174,7 @@ namespace MarketplaceApp.Domain
 
         public void AddProduct(string name, string description, decimal price, SellerDto sellerDto, string category)
         {
-            var seller = MappingService.MapToSeller(sellerDto);
+            var seller = Services.MappingService.MapToSeller(sellerDto);
             var productCategory = Services.Service.ParseCategory(category);
             var product = new Product(name, description, price, seller, productCategory);
             products.Add(product);
@@ -212,21 +220,13 @@ namespace MarketplaceApp.Domain
 
         public decimal ViewEarningsInTimePeriod(SellerDto sellerDto, DateTime startDate, DateTime endDate)
         {
-            decimal totalEarnings = 0;
-
-            foreach (var transaction in transactions)
-            {
-                if (transaction.SellerEmail == sellerDto.Email && transaction.TransactionDate >= startDate && transaction.TransactionDate <= endDate)
-                {
-                    var product = products.FirstOrDefault(p => p.Id == transaction.ProductId);
-                    if (product != null && product.Status == ProductStatus.Sold)
-                    {
-                        decimal earnings = product.Price * 0.95m;
-                        totalEarnings += earnings;
-                    }
-                }
-            }
-            return totalEarnings;
+            return products
+                .Where(p => p.Seller.Email == sellerDto.Email
+                            && p.Status == ProductStatus.Sold
+                            && transactions.Any(t => t.ProductId == p.Id
+                                                     && t.TransactionDate >= startDate
+                                                     && t.TransactionDate <= endDate))
+                .Sum(p => p.Price * 0.95m);
         }
     }
 }

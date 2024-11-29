@@ -49,8 +49,6 @@ namespace MarketplaceApp.Helpers
             return email;
         }
 
-
-
         public static string SelectCategory()
         {
             Console.WriteLine("Odaberite kategoriju:");

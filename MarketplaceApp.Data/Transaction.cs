@@ -9,17 +9,19 @@ namespace MarketplaceApp.Data
 {
     public class Transaction
     {
-        public Guid ProductId { get; private set; }
-        public string BuyerEmail { get; private set; }
-        public string SellerEmail { get; private set; }
-        public DateTime TransactionDate { get; private set; }
+        public Guid ProductId { get; set; }
+        public string BuyerEmail { get; set; }
+        public string SellerEmail { get; set; }
+        public DateTime TransactionDate { get; set; }
+        public decimal Amount { get; set; }
 
-        public Transaction(Guid productId, Buyer buyer, Seller seller)
+        public Transaction(Guid productId, Buyer buyer, Seller seller, decimal amount)
         {
             ProductId = productId;
             BuyerEmail = buyer.Email;
             SellerEmail = seller.Email;
             TransactionDate = DateTime.Now;
+            Amount = amount;
         }
     }
 }

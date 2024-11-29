@@ -10,7 +10,7 @@ namespace MarketplaceApp.Domain.Dtos
     {
         public decimal TotalEarnings { get; set; }
 
-        public SellerDto(string name, string email, decimal totalEarnings) : base(name, email)  // Call the UserDto constructor
+        public SellerDto(string name, string email, decimal totalEarnings) : base(name, email)
         {
             TotalEarnings = totalEarnings;
         }

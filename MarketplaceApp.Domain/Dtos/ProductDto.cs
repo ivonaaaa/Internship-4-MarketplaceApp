@@ -14,6 +14,7 @@ namespace MarketplaceApp.Domain.Dtos
         public decimal Price { get; set; }
         public string Description { get; set; }
         public ProductStatus Status { get; set; }
+        public ProductCategory Category { get; set; }
     }
 }
 

@@ -42,6 +42,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             string email = Helper.GetValidEmailInput("Unesite e-mail: ");
             decimal balance = Helper.GetValidDecimalInput("Unesite početni balans: ");
             _marketplace.RegisterBuyer(name, email, balance);
+            Console.ReadKey();
         }
 
         private void RegisterSeller()
@@ -50,6 +51,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             string name = Console.ReadLine();
             string email = Helper.GetValidEmailInput("Unesite e-mail: ");
             _marketplace.RegisterSeller(name, email);
+            Console.ReadKey();
         }
     }
 }

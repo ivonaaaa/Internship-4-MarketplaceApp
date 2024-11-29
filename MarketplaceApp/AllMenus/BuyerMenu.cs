@@ -91,7 +91,7 @@ namespace MarketplaceApp.Presentation.AllMenus
             if (Guid.TryParse(Console.ReadLine(), out var productId))
             {
                 var result = _marketplace.BuyProduct(_buyer.Email, productId);
-                Console.WriteLine(result ? "Kupnja uspješna!" : "Kupnja nije uspjela. Provjerite podatke.");
+                Console.WriteLine(result ? "Kupnja uspješna!" : "Kupnja nije uspjela. Nemate sredstava ili proizvod nije u prodaji.");
             }
             else
             {
@@ -101,16 +101,22 @@ namespace MarketplaceApp.Presentation.AllMenus
 
         private void ReturnProduct()
         {
-            Console.Write("Unesite ID proizvoda za povrat: ");
+            var history = _marketplace.ViewPurchaseHistory(_buyer);
+            if (history.Count == 0)
+            {
+                Console.WriteLine("Nemate povijest kupljenih proizvoda.");
+                return;
+            }
+            Console.WriteLine("\nVaši proizvodi trenutno:");
+            foreach (var product in history)
+                Console.WriteLine($"ID: {product.Id}, Naziv: {product.Name}");
+            Console.Write("\nUnesite ID proizvoda za povrat: ");
             if (Guid.TryParse(Console.ReadLine(), out var productId))
             {
                 var result = _marketplace.ReturnProduct(_buyer, productId);
                 Console.WriteLine(result ? "Povrat uspješan!" : "Povrat nije uspio. Provjerite podatke.");
             }
-            else
-            {
-                Console.WriteLine("Neispravan ID.");
-            }
+            else Console.WriteLine("Neispravan ID.");
         }
 
         private void AddToFavourites()
@@ -121,10 +127,7 @@ namespace MarketplaceApp.Presentation.AllMenus
                 var result = _marketplace.AddToFavourites(_buyer, productId);
                 Console.WriteLine(result ? "Proizvod dodan u omiljene!" : "Dodavanje u omiljene nije uspjelo.");
             }
-            else
-            {
-                Console.WriteLine("Neispravan ID.");
-            }
+            else Console.WriteLine("Neispravan ID.");
         }
 
         private void ViewPurchaseHistory()
@@ -138,25 +141,12 @@ namespace MarketplaceApp.Presentation.AllMenus
 
             Console.WriteLine("\nPovijest kupljenih proizvoda:");
             foreach (var product in history)
-            {
                 Console.WriteLine($"Naziv: {product.Name}, Cijena: {product.Price}, Opis: {product.Description}");
-            }
         }
 
         private void ViewFavoriteProducts()
         {
             var favorites = _marketplace.ViewFavoriteProducts(_buyer);
-            if (favorites.Count == 0)
-            {
-                Console.WriteLine("Nemate omiljenih proizvoda.");
-                return;
-            }
-
-            Console.WriteLine("\nVaša lista omiljenih proizvoda:");
-            foreach (var product in favorites)
-            {
-                Console.WriteLine($"Naziv: {product.Name}, Cijena: {product.Price}, Opis: {product.Description}");
-            }
         }
     }
 }

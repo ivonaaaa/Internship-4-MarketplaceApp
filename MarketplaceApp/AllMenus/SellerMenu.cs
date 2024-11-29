@@ -94,15 +94,24 @@ namespace MarketplaceApp.Presentation.AllMenus
         {
             Console.Clear();
             Console.WriteLine("Pregled proizvoda. Pritisnite bilo koju tipku za povratak na izbornik...");
-            _marketplace.ViewProducts(_seller);
+
+            var products = _marketplace.ViewProducts(_seller);
+            if (products.Count == 0)
+                Console.WriteLine("Nemate proizvode.");
+            else
+            {
+                foreach (var product in products)
+                    Console.WriteLine($"Naziv: {product.Name}, Cijena: {product.Price}");
+            }
             Console.ReadKey();
         }
+
 
         private void ViewTotalEarnings()
         {
             Console.Clear();
-            Console.WriteLine("Pregled ukupne zarade. Pritisnite bilo koju tipku za povratak na izbornik...");
-            _marketplace.ViewTotalEarnings(_seller);
+            var earnings = _marketplace.ViewTotalEarnings(_seller);
+            Console.WriteLine($"Ukupna zarada: {earnings}");
             Console.ReadKey();
         }
 
@@ -112,10 +121,19 @@ namespace MarketplaceApp.Presentation.AllMenus
             string category = Helper.SelectCategory();
             if (category != null)
             {
-                Console.WriteLine($"Pregled prodanih proizvoda u kategoriji: {category}. Pritisnite bilo koju tipku za povratak na izbornik...");
+                var soldProducts = _marketplace.ViewSoldProductsByCategory(_seller, category);
+                if (soldProducts.Count == 0)
+                    Console.WriteLine("Nema prodanih proizvoda u toj kategoriji.");
+                else
+                {
+                    foreach (var product in soldProducts)
+                        Console.WriteLine($"Naziv: {product.Name}, Cijena: {product.Price}");
+                }
             }
+            else Console.WriteLine("Neispravan odabir kategorije.");
             Console.ReadKey();
         }
+
 
         private void ViewEarningsForTimePeriod()
         {
@@ -129,13 +147,8 @@ namespace MarketplaceApp.Presentation.AllMenus
                 Console.WriteLine("Unesite datum početka (yyyy-MM-dd):");
                 string startInput = Console.ReadLine();
                 if (DateTime.TryParseExact(startInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out startDate))
-                {
                     break;
-                }
-                else
-                {
-                    Console.WriteLine("Nevažeći format datuma. Molimo unesite datum u formatu 'yyyy-MM-dd'.");
-                }
+                else Console.WriteLine("Nevažeći format datuma. Molimo unesite datum u formatu 'yyyy-MM-dd'.");
             }
 
             while (true)
@@ -145,22 +158,15 @@ namespace MarketplaceApp.Presentation.AllMenus
                 if (DateTime.TryParseExact(endInput, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out endDate))
                 {
                     if (endDate >= startDate)
-                    {
                         break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Završni datum mora biti jednak ili nakon početnog datuma. Pokušajte ponovo.");
-                    }
+                    else Console.WriteLine("Završni datum mora biti jednak ili nakon početnog datuma. Pokušajte ponovo.");
                 }
-                else
-                {
-                    Console.WriteLine("Nevažeći format datuma. Molimo unesite datum u formatu 'yyyy-MM-dd'.");
-                }
+                else Console.WriteLine("Nevažeći format datuma. Molimo unesite datum u formatu 'yyyy-MM-dd'.");
             }
             Console.Clear();
-            _marketplace.ViewEarningsInTimePeriod(_seller, startDate, endDate);
-            Console.WriteLine("Pregled zarade završen. Pritisnite bilo koju tipku za povratak na izbornik...");
+            decimal earnings = _marketplace.ViewEarningsInTimePeriod(_seller, startDate, endDate);
+            Console.WriteLine($"Zarada u odabranom vremenskom razdoblju: {earnings}");
+            Console.WriteLine("\nPritisnite bilo koju tipku za povratak na izbornik...");
             Console.ReadKey();
         }
     }

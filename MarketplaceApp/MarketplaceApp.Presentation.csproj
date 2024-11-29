@@ -48,6 +48,7 @@
     <Compile Include="AllMenus\RegisterMenu.cs" />
     <Compile Include="AllMenus\SellerMenu.cs" />
     <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Helpers\Printers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

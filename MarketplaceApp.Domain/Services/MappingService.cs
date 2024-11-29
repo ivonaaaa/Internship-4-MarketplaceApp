@@ -26,7 +26,8 @@ namespace MarketplaceApp.Domain.Services
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Status = product.Status
+                Status = product.Status,
+                Category = product.Category
             };
         }
 

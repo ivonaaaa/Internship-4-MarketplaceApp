@@ -50,7 +50,7 @@
     <Compile Include="PromoCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seeds\Seeds.cs" />
-    <Compile Include="Transactions.cs" />
+    <Compile Include="Transaction.cs" />
     <Compile Include="Users.cs" />
     <Compile Include="UserTypes\Buyer.cs" />
     <Compile Include="UserTypes\Seller.cs" />
